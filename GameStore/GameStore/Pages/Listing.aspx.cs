@@ -16,28 +16,34 @@ namespace GameStore.Pages
             get
             {
                 int page;
-                page = int.TryParse(Request.QueryString["page"], out page) ? page : 1;
-                return page > MaxPage ? MaxPage : page;
+                page = this.GetPageFromRequest();
+                return page > this.MaxPage ? this.MaxPage : page;
             }
         }
 
-        // Новое свойство, возвращающее наибольший номер допустимой страницы
         protected int MaxPage
         {
             get
             {
-                return (int)Math.Ceiling((decimal)repository.Games.Count() / pageSize);
+                return (int)Math.Ceiling((decimal)this.repository.Games.Count() / this.pageSize);
             }
+        }
+
+        private int GetPageFromRequest()
+        {
+            int page;
+            string reqValue = (string)this.RouteData.Values["page"] ??
+                this.Request.QueryString["page"];
+            return reqValue != null && int.TryParse(reqValue, out page) ? page : 1;
         }
 
         protected IEnumerable<Game> GetGames()
         {
-            return repository.Games
+            return this.repository.Games
                 .OrderBy(g => g.GameId)
-                .Skip((CurrentPage - 1) * pageSize)
-                .Take(pageSize);
+                .Skip((this.CurrentPage - 1) * this.pageSize)
+                .Take(this.pageSize);
         }
-
 
         protected void Page_Load(object sender, EventArgs e)
         {

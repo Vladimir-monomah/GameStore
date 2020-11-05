@@ -80,6 +80,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -113,7 +114,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Start\" />
     <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Helpers\" />
     <Folder Include="Scripts\" />
