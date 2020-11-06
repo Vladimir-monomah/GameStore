@@ -156,6 +156,7 @@ p.actionButtons {
     padding: .15em 1.5em .2em 1.5em;
     background-color: #353535;
     border: 1px solid black;
+    margin-left: -60px;
 }
 
 div#cartSummary {
