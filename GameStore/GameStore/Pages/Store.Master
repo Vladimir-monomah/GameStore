@@ -7,12 +7,13 @@
 <head id="Head1" runat="server">
     <title>GameStore</title>
     <link rel="stylesheet" href="/Content/Styles.css" />
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/validation") %>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
             <div id="header">
-                <GS:CartSummary runat="server" />
+                <GS:Cartsummary runat="server" />
                 <div class="title">GameStore - магазин компьютерных игр</div>
             </div>
             <div id="categories">
