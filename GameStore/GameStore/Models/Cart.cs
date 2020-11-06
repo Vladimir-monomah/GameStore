@@ -9,13 +9,13 @@ namespace GameStore.Models
 
         public void AddItem(Game game, int quantity)
         {
-            CartLine line = lineCollection
+            CartLine line = this.lineCollection
                 .Where(p => p.Game.GameId == game.GameId)
                 .FirstOrDefault();
 
             if (line == null)
             {
-                lineCollection.Add(new CartLine
+                this.lineCollection.Add(new CartLine
                 {
                     Game = game,
                     Quantity = quantity
@@ -29,22 +29,22 @@ namespace GameStore.Models
 
         public void RemoveLine(Game game)
         {
-            lineCollection.RemoveAll(l => l.Game.GameId == game.GameId);
+            this.lineCollection.RemoveAll(l => l.Game.GameId == game.GameId);
         }
 
         public decimal ComputeTotalValue()
         {
-            return lineCollection.Sum(e => e.Game.Price * e.Quantity);
+            return this.lineCollection.Sum(e => e.Game.Price * e.Quantity);
         }
 
         public void Clear()
         {
-            lineCollection.Clear();
+            this.lineCollection.Clear();
         }
 
         public IEnumerable<CartLine> Lines
         {
-            get { return lineCollection; }
+            get { return this.lineCollection; }
         }
     }
 

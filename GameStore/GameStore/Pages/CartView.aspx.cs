@@ -4,6 +4,7 @@ using GameStore.Pages.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Routing;
 
 namespace GameStore.Pages
 {
@@ -11,17 +12,17 @@ namespace GameStore.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack)
+            if (this.IsPostBack)
             {
                 var repository = new Repository();
                 int gameId;
-                if (int.TryParse(Request.Form["remove"], out gameId))
+                if (int.TryParse(this.Request.Form["remove"], out gameId))
                 {
                     Game gameToRemove = repository.Games
                         .Where(g => g.GameId == gameId).FirstOrDefault();
                     if (gameToRemove != null)
                     {
-                        SessionHelper.GetCart(Session).RemoveLine(gameToRemove);
+                        SessionHelper.GetCart(this.Session).RemoveLine(gameToRemove);
                     }
                 }
             }
@@ -29,14 +30,14 @@ namespace GameStore.Pages
 
         public IEnumerable<CartLine> GetCartLines()
         {
-            return SessionHelper.GetCart(Session).Lines;
+            return SessionHelper.GetCart(this.Session).Lines;
         }
 
         public decimal CartTotal
         {
             get
             {
-                return SessionHelper.GetCart(Session).ComputeTotalValue();
+                return SessionHelper.GetCart(this.Session).ComputeTotalValue();
             }
         }
 
@@ -44,7 +45,16 @@ namespace GameStore.Pages
         {
             get
             {
-                return SessionHelper.Get<string>(Session, SessionKey.RETURN_URL);
+                return SessionHelper.Get<string>(this.Session, SessionKey.RETURN_URL);
+            }
+        }
+
+        public string CheckoutUrl
+        {
+            get
+            {
+                return RouteTable.Routes.GetVirtualPath(null, "checkout",
+                    null).VirtualPath;
             }
         }
     }

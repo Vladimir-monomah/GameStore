@@ -14,6 +14,7 @@ namespace GameStore
             routes.MapPageRoute(null, "list", "~/Pages/Listing.aspx");
             //Именованный маршрут
             routes.MapPageRoute("cart", "cart", "~/Pages/CartView.aspx");
+            routes.MapPageRoute("checkout", "checkout", "~/Pages/Checkout.aspx");
         }
     }
 }

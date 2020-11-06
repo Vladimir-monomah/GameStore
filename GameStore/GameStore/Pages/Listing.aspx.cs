@@ -60,21 +60,21 @@ namespace GameStore.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack)
+            if (this.IsPostBack)
             {
                 int selectedGameId;
-                if(int.TryParse(Request.Form["add"],out selectedGameId))
+                if(int.TryParse(this.Request.Form["add"],out selectedGameId))
                 {
-                    Game selectedGame = repository.Games
+                    Game selectedGame = this.repository.Games
                         .Where(g => g.GameId == selectedGameId).FirstOrDefault();
 
                     if (selectedGame != null)
                     {
-                        SessionHelper.GetCart(Session).AddItem(selectedGame, 1);
-                        SessionHelper.Set(Session, SessionKey.RETURN_URL,
-                            Request.RawUrl);
+                        SessionHelper.GetCart(this.Session).AddItem(selectedGame, 1);
+                        SessionHelper.Set(this.Session, SessionKey.RETURN_URL,
+                            this.Request.RawUrl);
 
-                        Response.Redirect(RouteTable.Routes
+                        this.Response.Redirect(RouteTable.Routes
                             .GetVirtualPath(null, "cart", null).VirtualPath);
                     }
                 }

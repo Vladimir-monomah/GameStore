@@ -41,6 +41,7 @@
         </table>
         <p class="actionButtons">
             <a href="<%= ReturnUrl %>">Продолжить покупки</a>
+            <a href="<%= CheckoutUrl %>">Оформить заказ</a>
         </p>
     </div>
 </asp:Content>
