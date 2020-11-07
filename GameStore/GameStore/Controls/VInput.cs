@@ -13,13 +13,13 @@ namespace GameStore.Controls
 
         public string Namespace
         {
-            get { return nspace; }
-            set { nspace = value; }
+            get { return this.nspace; }
+            set { this.nspace = value; }
         }
         public string Model
         {
-            get { return model; }
-            set { model = value; }
+            get { return this.model; }
+            set { this.model = value; }
         }
 
         public string Property { get; set; }
@@ -27,11 +27,11 @@ namespace GameStore.Controls
         protected override void RenderContents(HtmlTextWriter output)
         {
 
-            output.AddAttribute(HtmlTextWriterAttribute.Id, Property.ToLower());
-            output.AddAttribute(HtmlTextWriterAttribute.Name, Property.ToLower());
+            output.AddAttribute(HtmlTextWriterAttribute.Id, this.Property.ToLower());
+            output.AddAttribute(HtmlTextWriterAttribute.Name, this.Property.ToLower());
 
-            Type modelType = Type.GetType(string.Format("{0}.{1}", Namespace, Model));
-            PropertyInfo propInfo = modelType.GetProperty(Property);
+            Type modelType = Type.GetType(string.Format("{0}.{1}", this.Namespace, this.Model));
+            PropertyInfo propInfo = modelType.GetProperty(this.Property);
             var attr = propInfo.GetCustomAttribute<RequiredAttribute>(false);
             if (attr != null)
             {

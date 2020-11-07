@@ -14,7 +14,7 @@ namespace GameStore.Pages.Admin
         {
             get
             {
-                return generateURL("admin_orders");
+                return this.generateURL("admin_orders");
             }
         }
 
@@ -22,7 +22,7 @@ namespace GameStore.Pages.Admin
         {
             get
             {
-                return generateURL("admin_games");
+                return this.generateURL("admin_games");
             }
         }
 

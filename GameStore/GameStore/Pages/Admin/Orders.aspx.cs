@@ -1,17 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Web.ModelBinding;
+using GameStore.Models;
+using GameStore.Models.Repository;
 
 namespace GameStore.Pages.Admin
 {
     public partial class Orders : System.Web.UI.Page
     {
+        private Repository repository = new Repository();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (this.IsPostBack)
+            {
+                int dispatchID;
+                if (int.TryParse(this.Request.Form["dispatch"], out dispatchID))
+                {
+                    Order myOrder = this.repository.Orders.Where(o => o.OrderId == dispatchID).FirstOrDefault();
+                    if (myOrder != null)
+                    {
+                        myOrder.Dispatched = true;
+                        this.repository.SaveOrder(myOrder);
+                    }
+                }
+            }
+        }
 
+        public IEnumerable<Order> GetOrders([Control] bool showDispatched)
+        {
+            if (showDispatched)
+            {
+                return this.repository.Orders;
+            }
+            else
+            {
+                return this.repository.Orders.Where(o => !o.Dispatched);
+            }
+        }
+
+        public decimal Total(IEnumerable<OrderLine> orderLines)
+        {
+            decimal total = 0;
+            foreach (OrderLine ol in orderLines)
+            {
+                total += ol.Game.Price * ol.Quantity;
+            }
+            return total;
         }
     }
 }
