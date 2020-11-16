@@ -18,37 +18,37 @@ namespace GameStore.Pages.Admin
 
         public IEnumerable<Game> GetGames()
         {
-            return repository.Games;
+            return this.repository.Games;
         }
 
         public void UpdateGame(int GameID)
         {
-            Game myGame = repository.Games
+            Game myGame = this.repository.Games
                 .Where(p => p.GameId == GameID).FirstOrDefault();
-            if (myGame != null && TryUpdateModel(myGame,
-                new FormValueProvider(ModelBindingExecutionContext)))
+            if (myGame != null && this.TryUpdateModel(myGame,
+                new FormValueProvider(this.ModelBindingExecutionContext)))
             {
-                repository.SaveGame(myGame);
+                this.repository.SaveGame(myGame);
             }
         }
 
         public void DeleteGame(int GameID)
         {
-            Game myGame = repository.Games
+            Game myGame = this.repository.Games
                 .Where(p => p.GameId == GameID).FirstOrDefault();
             if (myGame != null)
             {
-                repository.DeleteGame(myGame);
+                this.repository.DeleteGame(myGame);
             }
         }
 
         public void InsertGame()
         {
             Game myGame = new Game();
-            if (TryUpdateModel(myGame,
-                new FormValueProvider(ModelBindingExecutionContext)))
+            if (this.TryUpdateModel(myGame,
+                new FormValueProvider(this.ModelBindingExecutionContext)))
             {
-                repository.SaveGame(myGame);
+                this.repository.SaveGame(myGame);
             }
         }
     }
