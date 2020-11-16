@@ -9,7 +9,7 @@
                 <th>Имя заказчика</th>
                 <th>Город</th>
                 <th>Заказов</th>
-                <th>Сумма</th>
+                <th>Сумма</th> 
                 <th></th>
             </tr>
             <asp:Repeater ID="Repeater1" runat="server" SelectMethod="GetOrders"
